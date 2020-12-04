@@ -98,10 +98,11 @@ func main() {
 	err = cmd.Wait()
 	if err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
-			log.Printf("%s exited with status %d", errDisplayedName, exitError.ExitCode())
+			exitCode := exitError.ExitCode()
+			log.Printf("%s exited with status %d", errDisplayedName, exitCode)
+			os.Exit(exitCode)
 		} else {
 			log.Fatalf("%s cmd.Wait(): %v", errDisplayedName, err)
 		}
 	}
 }
-
